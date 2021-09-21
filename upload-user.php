@@ -53,8 +53,8 @@ if(isset($_POST["import"]))
     $grade           = strtolower($grade);
     $course_semester = strtolower($course_semester);
     $degree = strtolower($degree);
-    $dob = date_create($dob);
-    $dob =  date_format($dob,"Y-m-d");
+    // $dob = date_create($dob);
+    // $dob =  date_format($dob,"Y-m-d");
     
     $grade_point = 0;
 
