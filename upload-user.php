@@ -100,6 +100,11 @@ if(isset($_POST["import"]))
   if (mysqli_num_rows($student_details) == 0) { 
         $query = "INSERT INTO students(full_name,reg_number,dob,gender,department,faculty,year_entered,year_graduated,degree) VALUES ('".$full_name."', '".$reg_number."', '".$dob."', '".$gender."', '".$department."', '".$faculty."', '".$year_entered."', '".$year_graduated."', '".$degree."')";
         mysqli_query($connect, $query);
+      } else {
+        $query = "UPDATE students 
+    SET full_name = '".$full_name."', dob = '".$dob."', gender = '".$gender."', department = '".$department."', faculty = '".$faculty."', year_entered = '".$year_entered."', year_graduated = '".$year_graduated."', degree = '".$degree."' 
+    WHERE reg_number = '".$reg_number."'";
+    mysqli_query($connect, $query);
   }
       // }
       // $output .= '<td>'.$name.'</td>';
@@ -123,6 +128,20 @@ if(isset($_POST["import"]))
   if (mysqli_num_rows($course_details) == 0) { 
     $query = "INSERT INTO grade(course_code, course_title,credit_unit,grade,grade_point,course_level,course_semester,student_id) VALUES ('".$course_code."','".$course_title."','".$credit_unit."','".$grade."','".$grade_point."','".$course_level."','".$course_semester."','".$the_user_reg_number."')";
     mysqli_query($connect, $query);
+    echo $query;
+  } 
+  
+  else {
+    $query = "UPDATE grade 
+    SET course_title = '".$course_title."', credit_unit = '".$credit_unit."', grade = '".$grade."', grade_point = '".$grade_point."', course_level = '".$course_level."', course_semester = '".$course_semester."' 
+    WHERE student_id = '".$the_user_reg_number."' 
+    AND course_code = '".$course_code."'";
+    $success = mysqli_query($connect, $query);
+    if(!$success){
+      echo $query;
+      echo mysqli_error($connect);
+    }
+
   } 
     }
 
